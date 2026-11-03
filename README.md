@@ -2,6 +2,9 @@
 
 个人静态资讯台：AI 数字产品 / 独立 Side Project 的素材调研、选题、脚本模板与参考账号库。
 
+- 仓库：https://github.com/cloud-prg/startup-intel
+- 线上：https://cloud-prg.github.io/startup-intel/
+
 ## 本地预览
 
 ```bash
