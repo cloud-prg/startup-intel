@@ -57,18 +57,23 @@ export type ChecklistGroup = {
 }
 
 export type CommunityRow = {
-  rank?: number | string
   name: string
-  nature: string
-  heat?: string
-  activity?: string
+  /** 一行说明：用来做什么、什么时候更热闹 */
   usage: string
   region: 'cn' | 'global'
+  url?: string
+  /** 一个群号，或多个交流群 */
+  qq?: string | string[]
+  /** 怎么进群；没有 QQ 时可省略 */
+  joinNote?: string
 }
 
 export type ChannelRow = {
   name: string
-  traits: string
+  /** 一行说明：适合什么招募 */
   scenario: string
   region: 'cn' | 'global'
+  url?: string
+  qq?: string | string[]
+  joinNote?: string
 }
