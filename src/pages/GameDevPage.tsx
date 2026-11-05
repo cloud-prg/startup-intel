@@ -6,11 +6,15 @@ import type { CommunityRow } from '@/data/types'
 const sections: { title: string; rows: CommunityRow[] }[] = [
   {
     title: '国内讨论',
-    rows: gamedevCommunities.filter((row) => row.region === 'cn'),
+    rows: gamedevCommunities.filter((row) => row.group === 'discuss'),
   },
   {
-    title: '海外',
-    rows: gamedevCommunities.filter((row) => row.region === 'global'),
+    title: '盯独游',
+    rows: gamedevCommunities.filter((row) => row.group === 'indie'),
+  },
+  {
+    title: '盯行业风向',
+    rows: gamedevCommunities.filter((row) => row.group === 'industry'),
   },
 ]
 
@@ -20,7 +24,7 @@ export function GameDevPage() {
       <PageHeader
         kicker="GameDev Communities"
         title="游戏开发社区"
-        description="国内独游作者还在用的讨论和组队入口。海外只留 Steam，用来看 wishlist、评测和更新节奏。"
+        description="国内讨论和组队入口还在。看作品和行业用中文站：indienova、IndieBunny 盯独游，触乐、游研社盯风向。"
       />
       <div className="panel-grid">
         {sections
