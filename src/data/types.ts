@@ -61,6 +61,12 @@ export type CommunityRow = {
   /** 一行说明：用来做什么、什么时候更热闹 */
   usage: string
   region: 'cn' | 'global'
+  /**
+   * discuss：组队和讨论入口
+   * indie：中文独游雷达
+   * industry：中文行业风向
+   */
+  group: 'discuss' | 'indie' | 'industry'
   url?: string
   /** 一个群号，或多个交流群 */
   qq?: string | string[]

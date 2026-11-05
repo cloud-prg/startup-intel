@@ -79,7 +79,7 @@ export const navItems: NavItem[] = [
     path: '/gamedev',
     label: '游戏开发社区',
     short: 'GameDev',
-    description: '国内独游讨论入口，海外只留 Steam',
+    description: '国内讨论入口，中文独游资讯与行业风向',
   },
   {
     path: '/partners',
