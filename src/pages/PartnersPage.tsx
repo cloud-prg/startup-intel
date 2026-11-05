@@ -1,32 +1,39 @@
 import { PageHeader } from '@/components/PageHeader'
+import { LinkedLabel, PracticalNote } from '@/components/PracticalNote'
 import { partnerChannels } from '@/data/gamedev'
+import type { ChannelRow } from '@/data/types'
+
+const sections: { title: string; rows: ChannelRow[] }[] = [
+  {
+    title: '国内渠道',
+    rows: partnerChannels.filter((row) => row.region === 'cn'),
+  },
+  {
+    title: '国外渠道',
+    rows: partnerChannels.filter((row) => row.region === 'global'),
+  },
+]
 
 export function PartnersPage() {
-  const cn = partnerChannels.filter((row) => row.region === 'cn')
-  const global = partnerChannels.filter((row) => row.region === 'global')
+  const visible = sections.filter((section) => section.rows.length > 0)
 
   return (
     <>
       <PageHeader
-        kicker="Partner Channels"
-        title="寻找合作伙伴 / 人力"
-        description="组队、兼职、外包与正式招聘渠道分表，按场景选用。"
+        kicker="Find Teammates"
+        title="合作招募"
+        description="能直接点开的找队友渠道。QQ 群用群号搜索加入，赛期通常更热闹。"
       />
       <div className="panel-grid">
-        <ChannelTable title="国内渠道" rows={cn} />
-        <ChannelTable title="国外渠道" rows={global} />
+        {visible.map((section) => (
+          <ChannelTable key={section.title} title={section.title} rows={section.rows} />
+        ))}
       </div>
     </>
   )
 }
 
-function ChannelTable({
-  title,
-  rows,
-}: {
-  title: string
-  rows: typeof partnerChannels
-}) {
+function ChannelTable({ title, rows }: { title: string; rows: ChannelRow[] }) {
   return (
     <section className="panel">
       <div className="panel-head">
@@ -38,18 +45,18 @@ function ChannelTable({
           <thead>
             <tr>
               <th>渠道</th>
-              <th>特点</th>
-              <th>适用场景</th>
+              <th>怎么用</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((row) => (
               <tr key={`${row.region}-${row.name}`}>
                 <td>
-                  <strong>{row.name}</strong>
+                  <LinkedLabel name={row.name} url={row.url} />
                 </td>
-                <td>{row.traits}</td>
-                <td>{row.scenario}</td>
+                <td>
+                  <PracticalNote text={row.scenario} qq={row.qq} joinNote={row.joinNote} />
+                </td>
               </tr>
             ))}
           </tbody>

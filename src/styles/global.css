@@ -631,6 +631,25 @@ textarea {
   letter-spacing: -0.01em;
 }
 
+.data-table a {
+  color: var(--accent);
+}
+
+.cell-stack {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.cell-note,
+.cell-join {
+  margin: 0;
+}
+
+.cell-join {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .mobile-nav-toggle {
   display: none;
 }

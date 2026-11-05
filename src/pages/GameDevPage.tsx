@@ -1,32 +1,39 @@
 import { PageHeader } from '@/components/PageHeader'
+import { LinkedLabel, PracticalNote } from '@/components/PracticalNote'
 import { gamedevCommunities } from '@/data/gamedev'
+import type { CommunityRow } from '@/data/types'
+
+const sections: { title: string; rows: CommunityRow[] }[] = [
+  {
+    title: '国内讨论',
+    rows: gamedevCommunities.filter((row) => row.region === 'cn'),
+  },
+  {
+    title: '海外',
+    rows: gamedevCommunities.filter((row) => row.region === 'global'),
+  },
+]
 
 export function GameDevPage() {
-  const cn = gamedevCommunities.filter((row) => row.region === 'cn')
-  const global = gamedevCommunities.filter((row) => row.region === 'global')
-
   return (
     <>
       <PageHeader
         kicker="GameDev Communities"
-        title="国内外游戏开发者社区"
-        description="按热度与活跃度排序。适合发日志、找资源、看行业风向。"
+        title="游戏开发社区"
+        description="国内独游作者还在用的讨论和组队入口。海外只留 Steam，用来看 wishlist、评测和更新节奏。"
       />
       <div className="panel-grid">
-        <CommunityTable title="国内" rows={cn} />
-        <CommunityTable title="国外" rows={global} />
+        {sections
+          .filter((section) => section.rows.length > 0)
+          .map((section) => (
+            <CommunityTable key={section.title} title={section.title} rows={section.rows} />
+          ))}
       </div>
     </>
   )
 }
 
-function CommunityTable({
-  title,
-  rows,
-}: {
-  title: string
-  rows: typeof gamedevCommunities
-}) {
+function CommunityTable({ title, rows }: { title: string; rows: CommunityRow[] }) {
   return (
     <section className="panel">
       <div className="panel-head">
@@ -37,25 +44,19 @@ function CommunityTable({
         <table className="data-table">
           <thead>
             <tr>
-              <th>排名</th>
               <th>社区</th>
-              <th>性质</th>
-              <th>热度</th>
-              <th>活跃度</th>
-              <th>适合用法</th>
+              <th>怎么用</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr key={`${row.region}-${row.rank}-${row.name}`}>
-                <td>{row.rank}</td>
+              <tr key={`${row.region}-${row.name}`}>
                 <td>
-                  <strong>{row.name}</strong>
+                  <LinkedLabel name={row.name} url={row.url} />
                 </td>
-                <td>{row.nature}</td>
-                <td>{row.heat}</td>
-                <td>{row.activity}</td>
-                <td>{row.usage}</td>
+                <td>
+                  <PracticalNote text={row.usage} qq={row.qq} joinNote={row.joinNote} />
+                </td>
               </tr>
             ))}
           </tbody>
